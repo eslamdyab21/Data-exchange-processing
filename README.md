@@ -1,2 +1,43 @@
 # Introspect-Capital
 Introspect Capital Tasks for the technical interview
+
+
+## Tadawul-Exchange-Website
+Extract and save data from Tadawul Exchange website's monthly reports  with a specific focus on 'Trading by Nationality.
+
+<br/>
+#### To download the pdf file from the website
+- Using `wget`
+```bash
+ wget --user-agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0" "https://www.saudiexchange.sa/wps/wcm/connect/c4f67241-1068-48ba-b5c6-6276a4ca77ae/Monthly+Trading+and+Ownership+By+Nationality+Report+31-10-2023.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-c4f67241-1068-48ba-b5c6-6276a4ca77ae-oP52nbM"
+```
+Here is an example from getting the `2023_10__REPORT.pdf` report when filtering by  `Nationality`.
+
+<br/>
+
+Note that for this website we need to add the `user-agent` to the request.
+![](images/image1.png)
+
+<br/>
+
+> Now we just need to add this command into a bash script and call it from a python script with the desired monthly date, but first to get the date we need to parse the page content to get all the available dates.
+
+
+<br/>
+#### Parsing the page source with python 
+- The idea is to get only the lines with `Monthly Trading and Ownership By Nationality Report`
+![](images/image2.png)
+
+<br/>
+
+- And here is the page after outputting the page to a tmp file
+```bash
+python3 main.py > temp
+```
+
+<br/>
+
+![](images/image3.png)
+
+![](images/image4.png)
+Or we just can take the `herf` directly from here.
