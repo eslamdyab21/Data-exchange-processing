@@ -45,3 +45,20 @@ python3 main.py > temp
 
 ![](images/image4.png)
 Or we just can take the `herf` directly from here.
+
+
+##### Parsing the page source with python 
+After parsing the `temp` file with `news_reports_urls_etl.py` script , displayed is two directories one for `weekly` and another for `monthly` both filtered by `naionality`.
+
+![](images/image5.png)
+
+Each file contains the date with the url for all available pdfs within that category.
+
+- Example for year 2023, Monthly, and Trading By Nationality.
+![](images/image6.png)
+
+<br/>
+
+> Those csv files will be later used with the input from the user, which year ? which type ? ....
+
+<br/>
