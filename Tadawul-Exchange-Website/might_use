@@ -1,0 +1,8 @@
+# s = soup.find_all("li", {"class": "reportTypeMnthYear"})
+# s = soup.find_all("li", id=lambda x: x and x.startswith('2023_'))
+# s = soup.find_all("a", {"class": "btn"})
+
+
+# for soup_element in s:
+#     for a in soup_element.find_all('a', href=True):
+#         print(a['href'])
