@@ -6,6 +6,7 @@ Introspect Capital Tasks for the technical interview
 Extract and save data from Tadawul Exchange website's monthly reports  with a specific focus on 'Trading by Nationality.
 
 <br/>
+
 #### To download the pdf file from the website
 - Using `wget`
 
