@@ -14,7 +14,6 @@ response = requests.get(url=url, headers=headers)
 
 
 # Parsing the HTML
-
 soup = BeautifulSoup(response.content, 'html.parser')
 
 
