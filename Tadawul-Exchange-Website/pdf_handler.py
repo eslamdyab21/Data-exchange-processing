@@ -3,6 +3,7 @@ import subprocess
 import pdfplumber
 import json
 import os
+import csv
 from utils import parse_pdf_page_5, parse_pdf_page_6
 
 def download_pdf(year, date, type):
@@ -31,15 +32,32 @@ def download_pdf(year, date, type):
 
 
 
+def save_file(table_data, pdf_file_path, page):
+    base_dir = 'final_reports_csvs/' 
+    
+    print('saving..... ', pdf_file_path.split('/')[-1].split('.')[0] + page + '.csv')
+
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
+    keys = table_data[0].keys()
+
+    
+    with open(base_dir + pdf_file_path.split('/')[-1].split('.')[0] + page + '.csv', 'w', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(table_data)
+          
+
 def convert_pdf_to_csv(pdf_file_path): 
     with pdfplumber.open(pdf_file_path) as pdf:
         # page 5
         table_data = parse_pdf_page_5(pdf.pages[4])
-        print(json.dumps(table_data, indent=1))
+        save_file(table_data, pdf_file_path, page='-page-5')
 
         # page 6
         table_data = parse_pdf_page_6(pdf.pages[5])
-        print(json.dumps(table_data, indent=1))
+        save_file(table_data, pdf_file_path, page='-page-6')
 
 
 
