@@ -81,4 +81,14 @@ A look into the row lines output from the `pdfplumber` library of page 5
 <br/>
 
 A look into the row lines output from the `pdfplumber` library of page 6
-![](images/image9.png)]]
+![](images/image9.png)
+
+
+
+<br/>
+
+Here is the final output csv file of the report of page 5
+![](images/image11.png)
+
+Here is the final output csv file of the report of page 6
+![](images/image12.png)]]
