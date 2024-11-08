@@ -87,6 +87,14 @@ A look into the row lines output from the `pdfplumber` library of page 6
 
 <br/>
 
+```bash
+ls -R final_reports_csvs/
+final_reports_csvs/:
+31-07-2023-Monthly-page-5.csv  31-07-2023-Monthly-page-6.csv
+```
+
+<br/>
+
 Here is the final output csv file of the report of page 5
 ![](images/image11.png)
 
