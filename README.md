@@ -71,3 +71,8 @@ The `pdf_handler.py` with the help of `parse_pdf_page` function in `utils.py` fi
 - Parse the table content of page 5 and 6 of the pdf report and convert it to csv file
 
 ![](images/image7.png)
+
+<br/>
+
+A look into the row lines output from the `pdfplumber` library
+![](images/image8.png)
