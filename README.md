@@ -91,4 +91,26 @@ Here is the final output csv file of the report of page 5
 ![](images/image11.png)
 
 Here is the final output csv file of the report of page 6
-![](images/image12.png)]]
+![](images/image12.png)
+
+
+
+##### Oder of execution
+- run `web_scraping.py` to make the `temp` file of all pdfs urls
+```bash
+python3 web_scraping.py > temp
+```
+
+<br/>
+
+- then run `news_reports_urls_etl.py` script to make the `reports_urls_csvs` directory of all years and types
+```bash
+python3 reports_urls_csvs.py
+```
+
+<br/>
+
+- then run `pdf_handler.py` to get input from user, which year and which type, download the pdf file and parse its content and convert it to csv file and save it
+```bash
+python3 pdf_handler.py
+```
