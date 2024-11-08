@@ -29,7 +29,7 @@ Note that for this website we need to add the `user-agent` to the request.
 <br/>
 
 #### Parsing the page source with python 
-- The idea is to get only the lines with `Monthly Trading and Ownership By Nationality Report`
+reports_urls_csvs/- The idea is to get only the lines with `Monthly Trading and Ownership By Nationality Report`
 ![](images/image2.png)
 
 <br/>
@@ -63,3 +63,11 @@ Each file contains the date with the url for all available pdfs within that cate
 > Those csv files will be later used with the input from the user, which year ? which type ? ....
 
 <br/>
+
+##### Parsing the pdf table data with python 
+The `pdf_handler.py` with the help of `parse_pdf_page` function in `utils.py` file do the following:
+- Take desired report, its date, year and type
+- Get its url from previously saved csvs file and download it if we didn't download it before
+- Parse the table content of page 5 and 6 of the pdf report and convert it to csv file
+
+![](images/image7.png)
