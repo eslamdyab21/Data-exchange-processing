@@ -1,16 +1,90 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
+import MultipleSelectChip from "../../components/MultiSelect"
+import Button from '@mui/material/Button';
+import {fetchLineGraphSelections, getFilterdLineGraph} from '../../api/api';
+import {useState, useEffect} from 'react';
+import axios from 'axios'
+
+
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [lineGraphSelections, setLineGraphSelections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filteredLineGraph, setFilteredLineGraph] = useState(null);
+  const [buttonClicled, setButtonClicled] = useState(false);
+
+  const [tickersSelection, setTickersSelection] = useState([]);
+  const [countriesSelection, setCountriesSelection] = useState([]);
+  const [sectorsSelection, setSectorsSelection] = useState([]);
+  const [exchangesSelection, setExchangesSelection] = useState([]);
+
+  // let newSelections = {'Tickers':[], 'Countries':[], 'Sectors':[], 'Exchanges':[]};
+  // const [selections , setSelections] = useState({'Tickers':[], 'Countries':[], 'Sectors':[], 'Exchanges':[]})
+  let selections = null
+
+  useEffect(() => {
+    fetchLineGraphSelections()
+      .then(data => {
+        setLineGraphSelections(data);
+        setLoading(false);
+      })
+
+      .catch(err => {
+        console.log(err)
+        setLoading(false);
+      });
+
+  }, []);
+
+
+  useEffect(() => {
+    selections = {'Tickers':tickersSelection, 'Countries':countriesSelection,
+                    'Sectors':sectorsSelection, 'Exchanges':exchangesSelection}
+
+    console.log('selections', selections);
+
+    if(buttonClicled){
+      setButtonClicled(false)
+
+      getFilterdLineGraph(selections).then(result => {
+        setFilteredLineGraph(result)
+    });
+
+    }
+
+  }, [buttonClicled]);
+
+
+
+  const updateParentSelections = (name, values) => {
+    if(name == 'Tickers')
+      setTickersSelection(values)
+    else if (name == 'Countries')
+      setCountriesSelection(values)
+    else if (name == 'Sectors')
+      setSectorsSelection(values)
+    else if (name == 'Exchanges')
+      setExchangesSelection(values)
+
+
+
+    // newSelections[name] = values
+    // console.log(newSelections)
+    // setSelections(newSelections)
+
+    console.log('selections', selections)
+  }
+
 
   return (
     <Box m="20px">
@@ -96,12 +170,84 @@ const Dashboard = () => {
           />
         </Box>
 
+
         {/* ROW 2 */}
+        
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+
+            <MultipleSelectChip name={'Tickers'} names={lineGraphSelections.Tickers ?? []} updateParentSelections={updateParentSelections} ></MultipleSelectChip>
+          </Box>
+          
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <MultipleSelectChip  name={'Countries'} names={lineGraphSelections.Countries ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
+          </Box>
+
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <MultipleSelectChip name={'Sectors'} names={lineGraphSelections.Sectors ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
+          </Box>
+
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <MultipleSelectChip name={'Exchange places'} names={lineGraphSelections.Exchanges ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
+          </Box>
+          
+        {/*<BasicButtons> </BasicButtons>*/}
+
+        {/* ROW 3 */}
         <Box
           gridColumn="span 12"
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
         >
+
+        <Box
+            mt="25px"
+            p="0 30px"
+            display="flex "
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color={colors.grey[100]}
+              >
+                Statstics
+              </Typography>
+              <Typography
+                variant="h3"
+                fontWeight="bold"
+                color={colors.greenAccent[500]}
+              >
+              </Typography>
+            </Box>
+            <Box>
+              <Button 
+                  onClick={() => { setButtonClicled(true)}}
+                  variant="contained">Plot
+              </Button>
+            </Box>
+          </Box>
           <Box
             mt="25px"
             p="0 30px"
@@ -122,7 +268,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="400px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart filteredLineGraphData = {filteredLineGraph ?? []} isDashboard={true} />
           </Box>
         </Box>
 
