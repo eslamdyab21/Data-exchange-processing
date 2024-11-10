@@ -19,23 +19,23 @@ def get_line_data(ticker = None, country = None, sector = None, exchange = None,
     # Drop na records
     df_filtered = df_merged[~df_merged.isna().any(axis=1)]
 
+    if len(ticker) > 0:
+        df_filtered = df_filtered[df_filtered['Ticker'].isin(ticker)]
 
-    if ticker:
-        df_filtered = df_filtered[df_filtered['Ticker'] == ticker]
+    if len(country) > 0:
+        df_filtered = df_filtered[df_filtered['Country'].isin(country)]
 
-    if country:
-        df_filtered = df_filtered[df_filtered['Country'] == country]
+    if len(sector) > 0:
+        df_filtered = df_filtered[df_filtered['Sector'].isin(sector)]
 
-    if sector:
-        df_filtered = df_filtered[df_filtered['Sector'] == sector]
-
-    if exchange:
-        df_filtered = df_filtered[df_filtered['EXCHANGE'] == exchange]
-
+    if len(exchange) > 0:
+        df_filtered = df_filtered[df_filtered['EXCHANGE'].isin(exchange)]
 
 
     if y_axis:
         df_filtered = df_filtered[['Date', y_axis]]
+    else:
+        df_filtered = df_filtered[['Date', 'FO%']]
 
 
     return df_filtered
