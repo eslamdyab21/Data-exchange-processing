@@ -1,6 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
+import dayjs from 'dayjs';
 import { mockLineData as data } from "../data/mockData";
 
 
@@ -13,15 +14,15 @@ function convertFormat(filteredLineGraphData, y_axis){
                   color: tokens("dark").greenAccent[500],
                   data:[]}]
 
-  // for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
-  //   line_data['data'].push({'x':filteredLineGraphData["Date"], 'y':filteredLineGraphData[y_axis]})
-  // }
-
 
   for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
-    line_data[0]['data'].push({'x':i, 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
+    line_data[0]['data'].push({'x':dayjs(filteredLineGraphData['Date'][Object.keys(filteredLineGraphData['Date'])[i]]).format('YYYY-MM-DD'), 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
   }
 
+
+  // for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
+  //   line_data[0]['data'].push({'x':i, 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
+  // }
 
 
   return line_data
@@ -79,7 +80,12 @@ const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColo
       }}
       colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: "linear" }}
+      // xScale={{ type: "linear" }}
+      xScale={{
+          type: "time",
+          format: "%Y-%m-%d"
+        }}
+      xFormat="time:%Y-%m-%d"
       yScale={{
         type: "linear",
         min: "auto",
@@ -87,6 +93,7 @@ const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColo
         stacked: true,
         reverse: false,
       }}
+
       yFormat=" >-.2f"
       curve="catmullRom"
       axisTop={null}
@@ -96,6 +103,7 @@ const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColo
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
+        format: "%Y-%m-%d",
         legend: isDashboard ? undefined : "transportation", // added
         legendOffset: 36,
         legendPosition: "middle",

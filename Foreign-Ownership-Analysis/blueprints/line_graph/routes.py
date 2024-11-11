@@ -14,7 +14,6 @@ def get_data():
     start_date = data['Start Date']
     end_date = data['End Date']
 
-    print('data', data)
     df_filtered = get_line_data(ticker = ticker, country = country, sector = sector,
                                 exchange = exchange, y_axis = y_axis, start_date = start_date, 
                                 end_date = end_date)

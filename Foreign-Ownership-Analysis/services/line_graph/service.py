@@ -33,25 +33,11 @@ def get_line_data(ticker = None, country = None, sector = None, exchange = None,
 
 
     if start_date and start_date != 'Invalid Date':
-        year = start_date.split('/')[-1]
-        month = start_date.split('/')[0]
-        day = start_date.split('/')[1]
-
-        start_date = year + '-' + month + '-' + day
-
-
-        df_filtered = df_filtered[df_filtered['Date'] >= start_date]
+        df_filtered = df_filtered[df_filtered['Date'] >= str(start_date)]
 
 
     if end_date and end_date != 'Invalid Date':
-        year = end_date.split('/')[-1]
-        month = end_date.split('/')[0]
-        day = end_date.split('/')[1]
-
-        end_date = year + '-' + month + '-' + day
-
-
-        df_filtered = df_filtered[df_filtered['Date'] <= end_date]
+        df_filtered = df_filtered[df_filtered['Date'] <= str(end_date)]
 
 
 
@@ -61,5 +47,4 @@ def get_line_data(ticker = None, country = None, sector = None, exchange = None,
         df_filtered = df_filtered[['Date', 'FO%']]
 
 
-    print(df_filtered)
     return df_filtered
