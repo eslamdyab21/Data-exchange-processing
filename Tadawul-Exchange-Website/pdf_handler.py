@@ -9,6 +9,9 @@ from utils import parse_pdf_page_5, parse_pdf_page_6
 def download_pdf(year, date, type):
     pdf_download_path = os.getcwd()+'/pdfs'
 
+    if not os.path.exists(pdf_download_path):
+        os.makedirs(pdf_download_path)
+        
     if type == 'monthly':
         base_path = 'reports_urls_csvs/Monthly Trading By Nationality/'
         pdf_file_name = date + '-Monthly.pdf'
@@ -42,7 +45,6 @@ def save_file(table_data, pdf_file_path, page):
 
     keys = table_data[0].keys()
 
-    
     with open(base_dir + pdf_file_path.split('/')[-1].split('.')[0] + page + '.csv', 'w', newline='') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()

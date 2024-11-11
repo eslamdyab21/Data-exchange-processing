@@ -33,6 +33,7 @@ def get_line_data(ticker = None, country = None, sector = None, exchange = None,
 
 
     if start_date and start_date != 'Invalid Date':
+
         df_filtered = df_filtered[df_filtered['Date'] >= str(start_date)]
 
 
