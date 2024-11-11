@@ -4,38 +4,38 @@ import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData";
 
 
-function convertFormat(filteredLineGraphData){
+function convertFormat(filteredLineGraphData, y_axis){
+
+  if (!(y_axis in filteredLineGraphData))
+    return null
 
   let line_data = [{id: "data", 
                   color: tokens("dark").greenAccent[500],
                   data:[]}]
 
-  // for (let i = 0; i < Object.keys(filteredLineGraphData["FO%"]).length; i++) {
-  //   line_data['data'].push({'x':filteredLineGraphData["Date"], 'y':filteredLineGraphData["FO%"]})
+  // for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
+  //   line_data['data'].push({'x':filteredLineGraphData["Date"], 'y':filteredLineGraphData[y_axis]})
   // }
 
-  console.log('filteredLineGraphData', filteredLineGraphData)
 
-  for (let i = 0; i < Object.keys(filteredLineGraphData["FO%"]).length; i++) {
-    line_data[0]['data'].push({'x':i, 'y':filteredLineGraphData["FO%"][Object.keys(filteredLineGraphData["FO%"])[i]]})
+  for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
+    line_data[0]['data'].push({'x':i, 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
   }
 
-  console.log('Object.keys(filteredLineGraphData["FO%"]).length', Object.keys(filteredLineGraphData["FO%"]).length)
-  console.log('line_data', line_data)
+
 
   return line_data
 }
 
-const LineChart = ({ filteredLineGraphData = [], isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColors = false, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   let line_data = null
 
-  console.log('len', filteredLineGraphData.length)
 
   if (filteredLineGraphData.length > 0){
     filteredLineGraphData = JSON.parse(filteredLineGraphData)
-    line_data = convertFormat(filteredLineGraphData)
+    line_data = convertFormat(filteredLineGraphData, y_axis)
   }
 
 

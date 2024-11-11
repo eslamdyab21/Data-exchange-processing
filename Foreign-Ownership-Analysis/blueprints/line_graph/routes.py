@@ -4,18 +4,18 @@ from services.line_graph.service import get_line_data
 
 
 @line_graph_blueprint.route('/line_graph', methods=['GET', 'POST'])
-def get_products():
+def get_data():
     data = request.get_json()['selections']
 
     ticker = data['Tickers']
     country = data['Countries']
     sector = data['Sectors']
     exchange = data['Exchanges']
+    y_axis = data['Y-axis']
 
-    print(data)
 
 
-    df_filtered = get_line_data(ticker = ticker, country = country, sector = sector, exchange = exchange)
+    df_filtered = get_line_data(ticker = ticker, country = country, sector = sector, exchange = exchange, y_axis = y_axis)
     
     return jsonify(df_filtered.to_json())
 

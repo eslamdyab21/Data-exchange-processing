@@ -27,9 +27,8 @@ const Dashboard = () => {
   const [countriesSelection, setCountriesSelection] = useState([]);
   const [sectorsSelection, setSectorsSelection] = useState([]);
   const [exchangesSelection, setExchangesSelection] = useState([]);
+  const [yaxisSelection, setYaxisSelection] = useState([]);
 
-  // let newSelections = {'Tickers':[], 'Countries':[], 'Sectors':[], 'Exchanges':[]};
-  // const [selections , setSelections] = useState({'Tickers':[], 'Countries':[], 'Sectors':[], 'Exchanges':[]})
   let selections = null
 
   useEffect(() => {
@@ -49,9 +48,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     selections = {'Tickers':tickersSelection, 'Countries':countriesSelection,
-                    'Sectors':sectorsSelection, 'Exchanges':exchangesSelection}
+                    'Sectors':sectorsSelection, 'Exchanges':exchangesSelection,
+                    'Y-axis': yaxisSelection}
 
-    console.log('selections', selections);
 
     if(buttonClicled){
       setButtonClicled(false)
@@ -75,14 +74,9 @@ const Dashboard = () => {
       setSectorsSelection(values)
     else if (name == 'Exchanges')
       setExchangesSelection(values)
+    else if (name == 'Y-axis')
+      setYaxisSelection(values)
 
-
-
-    // newSelections[name] = values
-    // console.log(newSelections)
-    // setSelections(newSelections)
-
-    console.log('selections', selections)
   }
 
 
@@ -94,7 +88,7 @@ const Dashboard = () => {
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
-        gap="20px"
+        gap="1px"
       >
         {/* ROW 1 */}
         <Box
@@ -209,6 +203,17 @@ const Dashboard = () => {
           >
             <MultipleSelectChip name={'Exchange places'} names={lineGraphSelections.Exchanges ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
           </Box>
+
+
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            marginTop='-150px'
+          >
+            <MultipleSelectChip name={'Y-axis'} names={lineGraphSelections.y_axis ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
+          </Box>
           
         {/*<BasicButtons> </BasicButtons>*/}
 
@@ -217,6 +222,7 @@ const Dashboard = () => {
           gridColumn="span 12"
           gridRow="span 3"
           backgroundColor={colors.primary[400]}
+          marginTop='-100px'
         >
 
         <Box
@@ -268,7 +274,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="400px" m="-20px 0 0 0">
-            <LineChart filteredLineGraphData = {filteredLineGraph ?? []} isDashboard={true} />
+            <LineChart filteredLineGraphData = {filteredLineGraph ?? []} y_axis = {yaxisSelection ?? null} isDashboard={true} />
           </Box>
         </Box>
 

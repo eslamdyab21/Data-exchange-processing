@@ -33,7 +33,7 @@ def get_line_data(ticker = None, country = None, sector = None, exchange = None,
 
 
     if y_axis:
-        df_filtered = df_filtered[['Date', y_axis]]
+        df_filtered = df_filtered[['Date', y_axis[0]]]
     else:
         df_filtered = df_filtered[['Date', 'FO%']]
 

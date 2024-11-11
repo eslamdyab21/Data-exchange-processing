@@ -24,5 +24,6 @@ def get_line_selections():
     data['Countries'] = list(df_merged['Country'].unique())
     data['Sectors'] = list(df_merged['Sector'].unique())
     data['Exchanges'] = list(df_merged['EXCHANGE'].unique())
+    data['y_axis'] = ['FO WTD', 'FO MTD', 'FO YTD', 'Foreign Headroom', 'FO%']
 
     return data

@@ -4,7 +4,7 @@ from services.line_graph_selections.service import get_line_selections
 
 
 @line_graph_selections_blueprint.route('/line_graph_selections', methods=['GET', 'POST'])
-def get_products():    
+def get_data():    
     data = get_line_selections()
     
     return jsonify(data)
