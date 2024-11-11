@@ -122,3 +122,49 @@ python3 reports_urls_csvs.py
 ```bash
 python3 pdf_handler.py
 ```
+
+
+<br/>
+
+<br/>
+
+## Foreign-Ownership-Analysis
+Build a web-based dashboard to display and analyze data from an Excel file containing financial metrics for various tickers.
+
+- I started by inspecting the two dataframes with jupyter notebooks, you can see it in the `notebook.ipynb`
+along with useful insights about the data and wrangling.
+
+
+- Made a line graph showing `FO%` changes by `ADNOCGAS UH` in Ticker, `Energy` in Sector and `UAE` in Country
+![](images/image13.png)
+
+
+
+<br/>
+
+- Then I started developing a backend api with `flask`, `pandas` in python to filter and retrieve the data for the line graph plot in the frontend, all data related work is inspired by inspecting in the `notebook.ipynb`
+
+- Here is an example of and endpoint `http://localhost:8000/line_graph_selections` which returns all unique values of `Countries, Exchanges, Sectors, Tickers` columns so that we can chose from in the frontend.
+![](images/image14.png)
+
+<br/>
+
+- Then started to develop the frontend with `react`, the page features a pref summary about the `Countries, Exchanges, Sectors, Tickers` data, select drop-down menu to chose desired filtration, and then the line plot.
+![](images/image15.png)
+
+
+<br/>
+<br/>
+
+##### Oder of execution
+- run `main.py` in the `Foreign-Ownership-Analysis` directory for the backend, it will run on port 8000.
+```bash
+python3 main.py
+```
+
+<br/>
+
+- then we start the frontend dev environment by running the following command in the `web-dashboard` directory <ater installing react, npm, and its modules> and it will start on port 5000
+```bash
+npm run start
+```
