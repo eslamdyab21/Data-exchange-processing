@@ -7,6 +7,7 @@ import TrafficIcon from "@mui/icons-material/Traffic";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
 import MultipleSelectChip from "../../components/MultiSelect"
+import BasicDatePicker from "../../components/DateSelect"
 import Button from '@mui/material/Button';
 import {fetchLineGraphSelections, getFilterdLineGraph} from '../../api/api';
 import {useState, useEffect} from 'react';
@@ -27,7 +28,10 @@ const Dashboard = () => {
   const [countriesSelection, setCountriesSelection] = useState([]);
   const [sectorsSelection, setSectorsSelection] = useState([]);
   const [exchangesSelection, setExchangesSelection] = useState([]);
-  const [yaxisSelection, setYaxisSelection] = useState([]);
+  const [yaxisSelection, setYaxisSelection] = useState(['FO%']);
+  const [startDateSelection, setStartDateSelection] = useState([]);
+  const [endDateSelection, setEndDateSelection] = useState([]);
+
 
   let selections = null
 
@@ -49,7 +53,8 @@ const Dashboard = () => {
   useEffect(() => {
     selections = {'Tickers':tickersSelection, 'Countries':countriesSelection,
                     'Sectors':sectorsSelection, 'Exchanges':exchangesSelection,
-                    'Y-axis': yaxisSelection}
+                    'Y-axis': yaxisSelection, 'Start Date': startDateSelection,
+                    'End Date': endDateSelection}
 
 
     if(buttonClicled){
@@ -76,6 +81,10 @@ const Dashboard = () => {
       setExchangesSelection(values)
     else if (name == 'Y-axis')
       setYaxisSelection(values)
+    else if (name == 'Start Date')
+      setStartDateSelection(values)
+    else if (name == 'End Date')
+      setEndDateSelection(values)
 
   }
 
@@ -213,6 +222,26 @@ const Dashboard = () => {
             marginTop='-150px'
           >
             <MultipleSelectChip name={'Y-axis'} names={lineGraphSelections.y_axis ?? [] } updateParentSelections={updateParentSelections}></MultipleSelectChip>
+          </Box>
+
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            marginTop='-150px'
+          >
+            <BasicDatePicker name={'Start Date'} updateParentSelections={updateParentSelections}></BasicDatePicker>
+          </Box>
+
+          <Box
+            gridColumn="span 3"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            marginTop='-150px'
+          >
+            <BasicDatePicker name={'End Date'}  updateParentSelections={updateParentSelections}></BasicDatePicker>
           </Box>
           
         {/*<BasicButtons> </BasicButtons>*/}
