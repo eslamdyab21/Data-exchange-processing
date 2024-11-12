@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 from . import line_graph_blueprint
 from services.line_graph.service import get_line_data
 
@@ -14,7 +14,9 @@ def get_data():
     start_date = data['Start Date']
     end_date = data['End Date']
 
-    df_filtered = get_line_data(ticker = ticker, country = country, sector = sector,
+    df_merged = current_app.config['df_merged']
+
+    df_filtered = get_line_data(df_merged = df_merged, ticker = ticker, country = country, sector = sector,
                                 exchange = exchange, y_axis = y_axis, start_date = start_date, 
                                 end_date = end_date)
     

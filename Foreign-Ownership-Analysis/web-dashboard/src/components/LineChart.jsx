@@ -2,7 +2,6 @@ import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import dayjs from 'dayjs';
-import { mockLineData as data } from "../data/mockData";
 
 
 function convertFormat(filteredLineGraphData, y_axis){
@@ -83,7 +82,8 @@ const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColo
       // xScale={{ type: "linear" }}
       xScale={{
           type: "time",
-          format: "%Y-%m-%d"
+          format: "%Y-%m-%d",
+          stacked: true,
         }}
       xFormat="time:%Y-%m-%d"
       yScale={{
