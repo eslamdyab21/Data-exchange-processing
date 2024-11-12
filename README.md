@@ -156,8 +156,13 @@ along with useful insights about the data and wrangling.
 <br/>
 
 - Then started to develop the frontend with `react`, the page features a pref summary about the `Countries, Exchanges, Sectors, Tickers` data, select drop-down menu to chose desired filtration, and then the line plot.
-![](images/image15.png)
+![](images/image20.png)
 
+
+<br/>
+
+- Also we can filter by date, and the resulted filtered data is shown in a nice formatted table for reference.
+![](images/image21.png)
 
 <br/>
 <br/>
