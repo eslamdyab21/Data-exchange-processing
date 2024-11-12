@@ -8,6 +8,7 @@ import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
 import MultipleSelectChip from "../../components/MultiSelect"
 import BasicDatePicker from "../../components/DateSelect"
+import DataTable from "../../components/DataTable"
 import Button from '@mui/material/Button';
 import {fetchLineGraphSelections, getFilterdLineGraph} from '../../api/api';
 import {useState, useEffect} from 'react';
@@ -305,6 +306,17 @@ const Dashboard = () => {
           <Box height="400px" m="-20px 0 0 0">
             <LineChart filteredLineGraphData = {filteredLineGraph ?? []} y_axis = {yaxisSelection ?? null} isDashboard={true} />
           </Box>
+        </Box>
+
+
+        {/* ROW 4 */}
+        <Box
+          gridColumn="span 12"
+          gridRow="span 3"
+          // backgroundColor={colors.primary[400]}
+          // marginTop='100px'
+        >
+          <DataTable filteredLineGraphData = {filteredLineGraph ?? null} />
         </Box>
 
 

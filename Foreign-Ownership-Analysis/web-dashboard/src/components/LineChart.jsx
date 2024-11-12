@@ -6,22 +6,15 @@ import dayjs from 'dayjs';
 
 function convertFormat(filteredLineGraphData, y_axis){
 
-  if (!(y_axis in filteredLineGraphData))
-    return null
 
   let line_data = [{id: "data", 
                   color: tokens("dark").greenAccent[500],
                   data:[]}]
 
 
-  for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
-    line_data[0]['data'].push({'x':dayjs(filteredLineGraphData['Date'][Object.keys(filteredLineGraphData['Date'])[i]]).format('YYYY-MM-DD'), 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
-  }
-
-
-  // for (let i = 0; i < Object.keys(filteredLineGraphData[y_axis]).length; i++) {
-  //   line_data[0]['data'].push({'x':i, 'y':filteredLineGraphData[y_axis][Object.keys(filteredLineGraphData[y_axis])[i]]})
-  // }
+  filteredLineGraphData.forEach(object_record => {
+    line_data[0]['data'].push({'x':dayjs(object_record['Date']).format('YYYY-MM-DD'), 'y':object_record[y_axis]})
+  });
 
 
   return line_data
@@ -34,7 +27,6 @@ const LineChart = ({ filteredLineGraphData = [], y_axis = null, isCustomLineColo
 
 
   if (filteredLineGraphData.length > 0){
-    filteredLineGraphData = JSON.parse(filteredLineGraphData)
     line_data = convertFormat(filteredLineGraphData, y_axis)
   }
 

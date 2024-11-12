@@ -20,7 +20,7 @@ def get_data():
                                 exchange = exchange, y_axis = y_axis, start_date = start_date, 
                                 end_date = end_date)
     
-    return jsonify(df_filtered.to_json())
+    return df_filtered
 
 
 # ?ticker=ADNOCGAS UH&country=UAE&sector=Energy&exchange=Abu Dhabi&y_axis=FO%

@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 def get_line_data(df_merged = None, ticker = None, country = None, sector = None, exchange = None, y_axis = None, start_date = None, end_date = None):
     
@@ -48,11 +48,8 @@ def get_line_data(df_merged = None, ticker = None, country = None, sector = None
         df_filtered = df_filtered[df_filtered['Date'] <= str(end_date)]
 
 
-
-    if y_axis:
-        df_filtered = df_filtered[['Date', y_axis[0]]]
-    else:
-        df_filtered = df_filtered[['Date', 'FO%']]
+    df_filtered = df_filtered.reset_index()
+    df_filtered = df_filtered.rename(columns={'index': 'id'})
 
 
-    return df_filtered
+    return df_filtered.to_json(orient = "records")

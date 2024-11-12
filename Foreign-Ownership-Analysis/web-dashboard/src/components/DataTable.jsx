@@ -1,56 +1,86 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { tokens } from "../theme.js";
 import { useTheme } from "@mui/material";
+import dayjs from 'dayjs';
 
-const Contacts = () => {
+
+
+const DataTable = (props) => {
+  
+  let data = []
+  let filteredLineGraphData = props.filteredLineGraphData
+
+  if (props.filteredLineGraphData){
+    data = filteredLineGraphData
+  }
+
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "id", 
+      headerName: "id", 
+      flex: 0.5 
+    },
+    { field: "Date", 
+      headerName: "Date",
+      type: "date",
+      valueFormatter: (params) => dayjs(params.value).format('YYYY-MM-DD'),
+    },
     {
-      field: "name",
-      headerName: "Name",
+      field: "Ticker",
+      headerName: "Ticker",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "FO WTD",
+      headerName: "FO WTD",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "FO MTD",
+      headerName: "FO MTD",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "FO YTD",
+      headerName: "FO YTD",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "Foreign Headroom",
+      headerName: "Foreign Headroom",
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
+      field: "FO%",
+      headerName: "FO%",
       flex: 1,
     },
     {
-      field: "zipCode",
-      headerName: "Zip Code",
+      field: "Country",
+      headerName: "Country",
+      flex: 1,
+    },
+    {
+      field: "Sector",
+      headerName: "Sector",
+      flex: 1,
+    },
+    {
+      field: "EXCHANGE",
+      headerName: "EXCHANGE",
       flex: 1,
     },
   ];
 
+  if (props.filteredLineGraphData){
+   
   return (
     <Box m="20px">
       <Box
@@ -86,13 +116,13 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
-  );
+  );}
 };
 
-export default Contacts;
+export default DataTable;
